@@ -1,10 +1,42 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-function Task({ task, index, deleteTask }) {
+function Task({ task, index, deleteTask, editTask }) {
+  const [isEditing, setIsEditing] = useState(false); 
+  const [newText, setNewText] = useState(task.text); 
+
+  const handleEdit = () => {
+    setIsEditing(true);
+  };
+
+  const handleSave = () => {
+    editTask(index, newText); 
+    setIsEditing(false); 
+  };
+
+  const handleCancel = () => {
+    setIsEditing(false); 
+    setNewText(task.text); 
+  };
+
   return (
     <li>
-      {task.text}  {/* Muestra el texto de la tarea */}
-      <button onClick={() => deleteTask(index)}>Eliminar</button>  {/* Botón para eliminar la tarea */}
+      {isEditing ? (
+        <>
+          <input
+            type="text"
+            value={newText}
+            onChange={(e) => setNewText(e.target.value)}
+          />
+          <button onClick={handleSave}>Guardar</button>
+          <button onClick={handleCancel}>Cancelar</button>
+        </>
+      ) : (
+        <>
+          <span>{task.text}</span>
+          <button onClick={handleEdit}>Editar</button>
+        </>
+      )}
+      <button onClick={() => deleteTask(index)}>Eliminar</button>
     </li>
   );
 }

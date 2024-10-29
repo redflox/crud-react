@@ -1,15 +1,16 @@
 import React from 'react';
-import Task from './Task';  // Importa el componente Task para renderizar cada tarea
+import Task from './Task';
 
-function TaskList({ tasks, deleteTask }) {
+function TaskList({ tasks, deleteTask, editTask }) {
   return (
     <ul>
       {tasks.map((task, index) => (
         <Task
-          key={index}  // Cada tarea debe tener una clave única
+          key={index}  
           task={task}
           index={index}
           deleteTask={deleteTask}
+          editTask={editTask}
         />
       ))}
     </ul>

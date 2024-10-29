@@ -18,6 +18,14 @@ function App() {
     setTasks(newTasks);  // Actualiza el estado con las tareas restantes
   };
 
+  // Función para modificar una tarea
+  const editTask = (taskIndex, newText) => {
+    const updatedTasks = tasks.map((task, index) => 
+      index === taskIndex ? { ...task, text: newText } : task
+    );
+    setTasks(updatedTasks);  // Actualiza el estado con la tarea modificada
+  };
+
   return (
     <div className="App">
       <h1>Lista de Tareas</h1>
@@ -25,7 +33,7 @@ function App() {
       <TaskForm addTask={addTask} />
       
       {/* Renderiza la lista de tareas, pasándole las tareas y la función para eliminarlas */}
-      <TaskList tasks={tasks} deleteTask={deleteTask} />
+      <TaskList tasks={tasks} deleteTask={deleteTask} editTask={editTask} />
     </div>
   );
 }
